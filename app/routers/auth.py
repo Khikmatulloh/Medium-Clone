@@ -17,10 +17,9 @@ router = APIRouter(
 )
 
 
-# -------------------- Register --------------------
 @router.post("/register", response_model=UserRegisterOut, status_code=status.HTTP_201_CREATED)
 def register(payload: UserRegister, db: db_dep):
-    # check if email already exists
+  
     user_exists = db.query(User).filter(User.email == payload.email).first()
     if user_exists:
         raise HTTPException(
@@ -43,13 +42,12 @@ def register(payload: UserRegister, db: db_dep):
     return new_user
 
 
-# -------------------- JWT: Who am I --------------------
+
 @router.post("/jwt/me", response_model=UserRegisterOut)
 async def jwt_me(current_user: current_user_jwt_dep):
     return current_user
 
 
-# -------------------- Login --------------------
 @router.post("/login", response_model=TokenResponse)
 def login(payload: UserJWTLogin, db: db_dep):
     # login with email
@@ -77,7 +75,7 @@ def login(payload: UserJWTLogin, db: db_dep):
     )
 
 
-# -------------------- Refresh --------------------
+
 @router.post("/refresh", response_model=TokenResponse)
 def refresh(payload: JWTRefreshIn, db: db_dep):
     try:

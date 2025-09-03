@@ -15,7 +15,6 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 
 
-# -------------------- Password helpers --------------------
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
 
@@ -24,7 +23,7 @@ def verify_password(password: str, hashed_password: str) -> bool:
     return pwd_context.verify(password, hashed_password)
 
 
-# -------------------- JWT helpers --------------------
+
 def create_jwt_token(data: dict, expires_minutes: int = 15) -> str:
     """JWT yaratish"""
     to_encode = data.copy()
@@ -33,7 +32,7 @@ def create_jwt_token(data: dict, expires_minutes: int = 15) -> str:
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
-# -------------------- Bearer token parser --------------------
+
 def parse_jwt_header(request: Request, db: Session) -> User:
     """Request header dan foydalanuvchini olish (Bearer token orqali)"""
     auth_header = request.headers.get("Authorization")
@@ -71,15 +70,14 @@ def parse_jwt_header(request: Request, db: Session) -> User:
     return user
 
 
-# -------------------- Admin cookie helpers --------------------
 def set_admin_cookie(response: Response, token: str):
     """Admin JWT tokenini cookie ga yozish"""
     response.set_cookie(
         key="admin_token",
         value=token,
-        httponly=True,   # JavaScriptdan ko‘rinmaydi
-        max_age=3600,    # 1 soat
-        secure=False,    # productionda True qilish kerak
+        httponly=True,   
+        max_age=3600,    
+        secure=False,   
         samesite="lax"
     )
 

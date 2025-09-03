@@ -22,14 +22,10 @@ def create_article(
     db.refresh(article)
     return article
 
-
-# -------------------- Get all published articles (public) --------------------
 @router.get("/", response_model=list[ArticleOut])
 def list_articles(db: db_dep):
     return db.query(Article).filter(Article.published == True).all()
 
-
-# -------------------- Get single article --------------------
 @router.get("/{article_id}", response_model=ArticleOut)
 def get_article(article_id: int, db: db_dep):
     article = db.query(Article).filter(Article.id == article_id).first()
@@ -37,8 +33,6 @@ def get_article(article_id: int, db: db_dep):
         raise HTTPException(status_code=404, detail="Article not found")
     return article
 
-
-# -------------------- Update article (only owner) --------------------
 @router.put("/{article_id}", response_model=ArticleOut)
 def update_article(
     article_id: int,
@@ -60,8 +54,6 @@ def update_article(
     db.refresh(article)
     return article
 
-
-# -------------------- Delete article (only owner) --------------------
 @router.delete("/{article_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_article(
     article_id: int,

@@ -4,7 +4,7 @@ from app.models import Article
 
 
 def generate_weekly_digest(db, filepath="weekly_digest.json"):
-    """Publik maqolalar bo'yicha JSON digest yaratish"""
+    
     articles = db.query(Article).filter(Article.published == True).all()
     digest = [
         {

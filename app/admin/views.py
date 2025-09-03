@@ -15,7 +15,7 @@ class UserAdminView(ModelView):
     exclude_fields_from_edit: ClassVar[list[str]] = ["joined_at"]
     exclude_fields_from_list: ClassVar[list[str]] = ["joined_at"]
 
-    # Qidiruv va filter
+   
     searchable_fields: ClassVar[list[str]] = ["email"]
     filters: ClassVar[list[str]] = ["is_active", "is_admin", "role"]
 
@@ -44,7 +44,7 @@ class ArticleAdminView(ModelView):
     exclude_fields_from_edit: ClassVar[list[str]] = ["created_at", "updated_at"]
     exclude_fields_from_list: ClassVar[list[str]] = ["content"]
 
-    # Qidiruv va filter
+
     searchable_fields: ClassVar[list[str]] = ["title", "content"]
     filters: ClassVar[list[str]] = ["published"]
 

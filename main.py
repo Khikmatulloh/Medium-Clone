@@ -8,7 +8,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="My App")
 
 app.add_middleware(SessionMiddleware, secret_key="super-secret-key")
-# Routers
+
 app.include_router(auth.router)
 app.include_router(users.router)
 
